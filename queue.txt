@@ -1,0 +1,75 @@
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Queue{
+    int arr[];
+    int front;
+    int size;
+    
+    Queue(int cap){
+       arr = new int[cap] ;
+       front = 0;
+       size = 0;
+    }
+    
+    boolean isFull(){
+        return size == arr.length;
+    }
+    boolean isEmpty(){
+        return size == 0;
+    }
+    
+    void enqueue(int val){
+       if(isFull()){
+          System.out.println("QueueOverflowError"); 
+       } 
+       else{
+           int rear = (front + size) % arr.length;
+           arr[rear] = val;
+           size++;
+       }
+    }
+    void dequeue(){
+        if(isEmpty()){
+            System.out.println("QueueUnderflowError");
+        }
+        else{
+            front = (front + 1) % arr.length;
+            size--;
+        }
+    }
+   
+    void display(){
+        System.out.print("[ ");
+       for(int i = 0 ; i < size ; i++ ) {
+           int index = (front + i) % arr.length;
+           System.out.print(arr[index]+ " ");
+       }
+       System.out.print("]");System.out.println();
+    }
+}
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		Queue qu = new Queue(5);
+	qu.enqueue(6);
+	qu.enqueue(7);
+	qu.enqueue(8);
+	qu.enqueue(9);
+	qu.enqueue(10);
+	
+		qu.display();
+		
+		qu.dequeue();
+		qu.display();
+		qu.enqueue(11);
+		
+		qu.display();
+	}
+}

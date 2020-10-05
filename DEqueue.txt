@@ -1,0 +1,110 @@
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class DEqueue{
+    int arr[];
+    int front;
+    int size;
+    int rear;
+    
+    DEqueue(int cap){
+       arr = new int[cap] ;
+       front = 0;
+       size = 0;
+       rear = 0;
+    }
+    
+    boolean isFull(){
+        return size == arr.length;
+    }
+    boolean isEmpty(){
+        return size == 0;
+    }
+    
+    void addLast(int val){
+       if(isFull()){
+          System.out.println("QueueOverflowError"); 
+       } 
+       else{
+           int rear = (front + size) % arr.length;
+           arr[rear] = val;
+           size++;
+       }
+    }
+    
+    void addFirst(int val){
+       if(isFull()){
+          System.out.println("QueueOverflowError"); 
+       } 
+       else{
+           if(front == 0){
+               front = arr.length -1;
+           }
+           else{
+               front = front - 1;
+           }
+           arr[front] = val;
+           size++;
+       } 
+    }
+    
+    void removeFirst(){
+        if(isEmpty()){
+            System.out.println("QueueUnderflowError");
+        }
+        else{
+            front = (front + 1) % arr.length;
+            size--;
+        }
+    }
+   
+   void removeLast(){
+      if(isEmpty()){
+            System.out.println("QueueUnderflowError");
+        }
+        else{
+            if(rear == 0){
+                rear =arr.length - 1;
+            }
+            else{
+                rear = rear - 1;
+            }size--;
+        } 
+   }
+   
+   
+    void display(){
+        System.out.print("[ ");
+       for(int i = 0 ; i < size ; i++ ) {
+           int index = (front + i) % arr.length;
+           System.out.print(arr[index]+ " ");
+       }
+       System.out.print("]");
+       System.out.println();
+    }
+}
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		Queue qu = new Queue(5);
+	qu.enqueue(6);
+	qu.enqueue(7);
+	qu.enqueue(8);
+	qu.enqueue(9);
+	qu.enqueue(10);
+	
+		qu.display();
+		
+		qu.dequeue();
+		qu.display();
+		qu.enqueue(11);
+		
+		qu.display();
+	}
+}
