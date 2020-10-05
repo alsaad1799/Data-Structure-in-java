@@ -1,175 +1,177 @@
-/* package codechef; // don't place package name! */
 
-import java.util.*;
-import java.lang.*;
-import java.io.*;
-
-
-
-class Node {
+class Node{
     int data;
     Node next;
 }
 
-class Linkedlist{
+class List{
     Node head;
     Node tail;
     int size;
-    
-       void addLast(int val){
-       Node newNode = new Node();
-       newNode.data = val;
-       newNode.next = null;
-       
-       if(size == 0){
-           head = tail = newNode;
-       }
-       else{
-           tail.next = newNode;
-           tail = newNode;
-       }
-       size++;
+
+    void addFirst(int val){
+        Node newNode = new Node();
+        newNode.data = val;
+        newNode.next = null;
+
+        if(size == 0){
+            head = tail = newNode;
+        }
+        else{
+            newNode.next = head;
+            head = newNode;
+        }
+        size++;
     }
-    
-        void addFirst(int val){
-            Node newNode = new Node();
-            newNode.data = val;
-            newNode.next = null;
-            
-            if(size == 0){
-                head = tail = newNode;
-            }
-            else{
-                
-              newNode.next = head;
-              head = newNode;
-                
-            }   
-            size++;
+
+    void addLast(int val){
+        Node newNode = new Node();
+        newNode.data = val;
+        newNode.next = null;
+
+        if(size == 0){
+            head = tail = newNode;
         }
-        
-        void add(int index , int val){
-          Node newNode = new Node();
-            newNode.data = val;
-            newNode.next = null;
-            if(index < 0 || index > size){
-              System.out.println("invalid index");
-            }
-            else if(index == 0){
-                addFirst(val);
-            }
-            else if(index == size){
-                addLast(val);
-            }
-            else{
-                Node temp = head;
-                for(int i = 0 ; i < index - 1 ; i++){
-                   temp = temp.next; 
-                }
-              newNode.next = temp.next;
-              temp.next = newNode;
-                size++;
-            }   
-              
+        else{
+            tail.next = newNode;
+            tail = newNode;
         }
-        
-        void removeFirst(){
-           
-            if(size == 0){
-                System.out.println("underflow");
-            }
-            else{
-            head = head.next;
-            size--;}
-        }
-        void removeLast(){
-            if(size == 0){
-                System.out.println("underflow");
-            }
-            else{
-            Node temp = head;
-            while(temp.next.next != null){
-                temp = temp.next;
-            }
-            temp.next = null;
-            temp = tail;
-            size--;}
-        }
-        void remove(int index){
-            if(size == 0 ){
-                System.out.println("underflow");
-            }
-            else if(index < 0 || index >= size){
-                System.out.println("invalid");
-            }
-            else if(index == 0 ){
-                removeFirst();
-            }
-            else if(index == size - 1){
-                removeLast();
-            }
-            else{
-                Node temp = head;
-                for(int i = 0 ; i < index-1 ; i++){
-                    temp = temp.next;
-                }
-                
-                temp.next = temp.next.next;
-                size--;
-                
-            }
-        }
-        
-        void search (int val){
-           Node temp = head;
-        while(temp != null){
-            if(temp.data == val){
-            System.out.print(temp.data + " Found");
-                break;
-            }
-            temp = temp.next;
-        }System.out.println();
-        }
-        
-        int size(){
-            System.out.println("Size : " + size);
-            return size;
-        }
-    void display(){
+        size++;
+    }
+
+    int length(){
+        return size;
+    }
+
+    void print(){
         Node temp = head;
         while(temp != null){
             System.out.print(temp.data + " -> ");
             temp = temp.next;
-        }System.out.println();
+        }
+        System.out.println();
+    }
+
+    int search(int val){
+        //System.out.println("Finding : " + val);
+        Node temp = head;
+        int index = 0;
+        boolean found = false;
+        while(temp != null){
+            if(temp.data == val){
+                found = true;
+                break;
+            }
+            index++;
+            temp = temp.next;
+        }
+        if(found){
+            System.out.println("Found at index : " + index);
+            return index;
+        }
+        else{
+            System.out.println("Not found");
+            return -1;
+        }
+    }
+
+    void delete(int index){
+        if(index == 0){
+            head = head.next;
+            size--;
+        }
+        else if(index < 0 || index >= size){
+            System.out.println("Enter valid Index");
+        }
+        else {
+            Node temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp.next;
+            }
+            temp.next = temp.next.next;
+            size--;
+        }
+    }
+
+    int getAtIndex(int index){
+        if(index < 0 || index >= size){
+            System.out.println("Enter valid Index");
+            return -1;
+        }
+        else if(index == 0){
+            return head.data;
+        }
+        else{
+            Node temp = head;
+            for(int i=0; i<index; i++){
+                temp = temp.next;
+            }
+            return temp.data;
+        }
+    }
+
+    int count(int key){
+        Node temp = head;
+        int count = 0;
+        while(temp != null){
+            if(key == temp.data){
+                count++;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Count of " + key + " : " + count);
+        return count;
+    }
+
+    void maxNmin(){
+        Node temp = head;
+        int max = head.data;
+        int min = head.data;
+        while(temp != null){
+            if(temp.data >= max){
+                max = temp.data;
+            }
+            if(temp.data <= min){
+                min = temp.data;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Max : " + max + "\n" + "Min : " + min);
+    }
+
+    void toCircular(){
+        tail.next = head;
     }
 }
 
-
-
-/* Name of the class has to be "Main" only if the class is public. */
-class Codechef
-{
-	public static void main (String[] args) throws java.lang.Exception
-	{
-		// your code goes here
-		Linkedlist ll = new Linkedlist();
-		ll.addLast(10);
-		ll.addLast(20);
-		ll.addLast(30);
-		ll.addLast(50);
-		ll.add(3,40);
-		ll.addFirst(-10);
-		ll.addFirst(-20);
-		ll.addFirst(-30);
-	   
-	ll.add(-1,40);
-	ll.add(9,40);
-	 
-	 ll.removeFirst();
-	 ll.removeLast();
-	 ll.remove(3);
-	 ll.search(10);
-	 ll.size();
-		ll.display();
-	}
+public class LinkedList{
+    public static void main(String[] args) {
+        List ll = new List();
+        ll.addFirst(10);
+        ll.addLast(20);
+        ll.addFirst(0);
+        ll.addLast(30);
+        ll.print();
+        System.out.println("Length : " + ll.length());
+        ll.search(20);
+        ll.search(0);
+        ll.search(30);
+        ll.search(40);
+        ll.delete(0);
+        ll.print();
+        System.out.println("Length : " + ll.length());
+        System.out.println("Get At Index 0 : " + ll.getAtIndex(0));
+        System.out.println("Get At Index 1 : " + ll.getAtIndex(1));
+        System.out.println("Get At Index 2 : " + ll.getAtIndex(2));
+        ll.addLast(10);
+        ll.addLast(50);
+        ll.addLast(10);
+        ll.addLast(60);
+        ll.addLast(70);
+        ll.addLast(10);
+        ll.print();
+        System.out.println("Length : " + ll.length());
+        ll.count(10);
+        ll.maxNmin();
+    }
 }
